@@ -8,7 +8,7 @@ import { RecipeListComponent } from "./components/recipe-list/recipe-list.compon
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    imports: [RouterOutlet, RouterModule, RecipeComponent, RecipeListComponent]
+    imports: [RouterOutlet,RouterModule]
 })
 export class AppComponent {
   title = 'openbar-ui';

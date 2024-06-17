@@ -1,0 +1,62 @@
+<div class="recipe-form">
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Recipe Name</label>
+      <input id="name" formControlName="name" type="text" pInputText />
+      <div *ngIf="recipeForm.get('name')?.invalid && recipeForm.get('name')?.touched" class="error">
+        Recipe name is required.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Image URL</label>
+      <input id="image" formControlName="image" type="text" pInputText />
+    </div>
+
+    <div formArrayName="quantities">
+      <div *ngFor="let quantity of quantities.controls; let i = index" [formGroupName]="i" class="quantity-group">
+        <div class="form-group">
+          <label for="quantity-{{i}}">Quantity</label>
+          <input id="quantity-{{i}}" formControlName="quantity" type="number" pInputText />
+        </div>
+
+        <div class="form-group">
+          <label for="unit-{{i}}">Unit</label>
+          <input id="unit-{{i}}" formControlName="unit" type="text" pInputText />
+        </div>
+
+        <div formGroupName="ingredient">
+          <div class="form-group">
+            <label for="ingredient-{{i}}">Ingredient</label>
+            <p-autoComplete id="ingredient-{{i}}" formControlName="name" [suggestions]="filteredIngredients[i]" field="name"
+            (completeMethod)="_filter($event.query,i)" (onSelect)="onIngredientSelect($event, i)">
+            </p-autoComplete>
+          </div>
+        </div>
+
+        <button type="button" (click)="removeQuantity(i)">Remove Quantity</button>
+      </div>
+    </div>
+
+    <button type="button" (click)="addQuantity()">Add Quantity</button>
+
+    <div formArrayName="steps">
+      <div *ngFor="let step of steps.controls; let i = index" [formGroupName]="i" class="step-group">
+        <div class="form-group">
+          <label for="step-{{i}}">Step Description</label>
+          <textarea id="step-{{i}}" formControlName="description" rows="2"></textarea>
+        </div>
+        <button type="button" (click)="removeStep(i)">Remove Step</button>
+      </div>
+    </div>
+
+    <button type="button" (click)="addStep()">Add Step</button>
+
+    <button type="submit" [disabled]="recipeForm.invalid">Submit Recipe</button>
+  </form>
+</div>

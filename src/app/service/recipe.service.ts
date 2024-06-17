@@ -21,4 +21,10 @@ export class RecipeService {
     return this.http.get<Page<RecipeDto>>(`${this.baseUrl}/recipe/recipes`, { params });
   }
 
+  saveRecipe(recipe: RecipeDto): Observable<RecipeDto> {
+    return this.http.post<RecipeDto>(`${this.baseUrl}/recipe/recipe`, recipe);
+  }
+
+
+
 }

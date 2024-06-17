@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-recipe',
@@ -8,8 +9,15 @@ import { CommonModule } from '@angular/common';
   templateUrl: './recipe.component.html',
   styleUrl: './recipe.component.scss'
 })
-export class RecipeComponent {
+export class RecipeComponent implements OnInit{
 
+constructor(private route: ActivatedRoute){}
+id:string|undefined|null 
 
+ngOnInit(): void {
+  this.route.paramMap.subscribe(params => {
+    this.id = params.get('id');
+  });
+}
 
 }

@@ -2,23 +2,8 @@
     <div *ngFor="let recipe of recipesPage.content">
       <h3>{{ recipe.name }}</h3>
       <p>{{ recipe.description }}</p>
+      <p><a [routerLink]="['/recipe', recipe.id]">Détails</a></p>
       <img [src]="recipe.image" alt="{{ recipe.name }}">
-      <div>
-        <h4>Quantities:</h4>
-        <ul>
-          <li *ngFor="let quantity of recipe.quantities">
-            {{ quantity.quantity }} {{ quantity.unit }} of {{ quantity.ingredient.name }}
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h4>Steps:</h4>
-        <ol>
-          <li *ngFor="let step of recipe.steps">
-            {{ step.description }} <span *ngIf="step.firstStep">(First Step)</span> <span *ngIf="step.lastStep">(Last Step)</span>
-          </li>
-        </ol>
-      </div>
     </div>
   
     <div class="pagination">
