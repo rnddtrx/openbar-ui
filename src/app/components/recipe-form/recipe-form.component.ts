@@ -88,7 +88,7 @@ export class RecipeFormComponent implements OnInit {
   }
 
   onIngredientSelect(event: any, index: number) {
-    const selectedIngredient = event;
+    const selectedIngredient = event.value;
     this.quantities.at(index).get('ingredient')?.setValue(selectedIngredient);
   }
 

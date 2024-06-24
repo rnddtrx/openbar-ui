@@ -1,0 +1,60 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="username">Username:</label>
+      <input id="username" formControlName="username">
+      <div *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched">
+        Username is required.
+      </div>
+    </div>
+  
+    <div>
+      <label for="password">Password:</label>
+      <input id="password" type="password" formControlName="password">
+      <div *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched">
+        Password is required (minimum 6 characters).
+      </div>
+    </div>
+  
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email">
+      <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+        Valid email is required.
+      </div>
+    </div>
+  
+    <div>
+      <label for="firstName">First Name:</label>
+      <input id="firstName" formControlName="firstName">
+      <div *ngIf="userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched">
+        First name is required.
+      </div>
+    </div>
+  
+    <div>
+      <label for="lastName">Last Name:</label>
+      <input id="lastName" formControlName="lastName">
+      <div *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched">
+        Last name is required.
+      </div>
+    </div>
+  
+    <div>
+      <label for="enabled">Enabled:</label>
+      <input id="enabled" type="checkbox" formControlName="enabled">
+    </div>
+  
+    <div formArrayName="appRoles">
+      <div *ngFor="let role of appRoles.controls; let i = index" [formGroupName]="i">
+        <label for="roleName-{{i}}">Role:</label>
+        <select formControlName="id">
+          <option *ngFor="let roleOption of roles" [value]="roleOption.id">{{ roleOption.roleName }}</option>
+        </select>
+        <input formControlName="roleName" type="hidden" />
+        <button type="button" (click)="removeRole(i)">Remove Role</button>
+      </div>
+    </div>
+  
+    <button type="button" (click)="addRole()">Add Role</button>
+    <button type="submit" [disabled]="userForm.invalid">Submit</button>
+  </form>
